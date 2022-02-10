@@ -45,6 +45,8 @@ LOG_FILE=$BASE/apps/log/ocrmypdf.log
 
           ### Produce initial JSON document ###
 
+	  UUID=$(uuid)
+
           # Strip all double whitespaces and linefeeds from text
           PDFTXT=$(tr -ds  "\n\f" " " < "$OUTPUT_DIR${entry##*/}.txt")
           NAME=${entry##*/}
@@ -60,7 +62,8 @@ LOG_FILE=$BASE/apps/log/ocrmypdf.log
 
           JSON="{
                     \"document\" : {
-                      \"name\" : \"$NAME\",
+                      \"id\" : \"$UUID\",
+		      \"name\" : \"$NAME\",
                       \"directoy\" : \"$OUTPUT_DIR\",
                       \"text\" : \"$PDFTXT\",
                       \"timestamp\" : \"$YEAR-$MONTH-$DAY-$HOUR-$MINUTE\",
@@ -76,6 +79,11 @@ LOG_FILE=$BASE/apps/log/ocrmypdf.log
                     }
                   }"
           echo "$JSON" > "$OUTPUT_DIR${entry##*/}.json"
+
+
+	  ## send the record to elastic search
+          curl -H "Content-Type: application/json" -XPOST "http://localhost:9200/dochauser/document/$UUID" -d @$OUTPUT_DIR${entry##*/}.json
+
 
           ### Mark as processed
           touch "$entry.1"

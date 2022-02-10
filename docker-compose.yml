@@ -5,4 +5,8 @@ services:
     volumes:
       - /home/scanner/dochauser_mount/archive:/home/scanner/archive
       - /home/scanner/dochauser_mount/scanner:/home/scanner/scanner
+      - /home/scanner/dochauser_mount/elasticdata:/var/lib/elasticsearch
+
+    ports:
+      - "9200:9200"
 
