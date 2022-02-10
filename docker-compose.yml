@@ -1,0 +1,8 @@
+version: "3.3"
+services:
+  dochauser:
+    build: .
+    volumes:
+      - /home/scanner/dochauser_mount/archive:/home/scanner/archive
+      - /home/scanner/dochauser_mount/scanner:/home/scanner/scanner
+

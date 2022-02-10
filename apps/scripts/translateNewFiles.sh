@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-BASE=/scanner
+BASE=/home/scanner
 #BASE=/Users/florian/Downloads/media/stick
 
 MONITOR_DIR=$BASE/scanner/
@@ -85,4 +85,4 @@ LOG_FILE=$BASE/apps/log/ocrmypdf.log
       fi
     done
 
-} >> LOG_FILE;
+} >> $LOG_FILE;
