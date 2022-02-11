@@ -1,8 +1,6 @@
 #! /usr/bin/env bash
 
-BASE=/home/scanner
-ARCHIVE_DIR=$BASE/archive/
-LOG_FILE=$BASE/apps/log/reinitElasticSearch.log
+source config.sh
 
 {
     cur_files=$(find $ARCHIVE_DIR -name "*.pdf.json")

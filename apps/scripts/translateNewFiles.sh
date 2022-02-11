@@ -1,11 +1,7 @@
 #! /usr/bin/env bash
 
-BASE=/home/scanner
-#BASE=/Users/florian/Downloads/media/stick
+source config.sh
 
-MONITOR_DIR=$BASE/scanner/
-ARCHIVE_DIR=$BASE/archive/
-LOG_FILE=$BASE/apps/log/ocrmypdf.log
 
 {
     cur_files=$(ls  ${MONITOR_DIR}*.pdf)
@@ -45,7 +41,7 @@ LOG_FILE=$BASE/apps/log/ocrmypdf.log
 
           ### Produce initial JSON document ###
 
-	  UUID=$(uuid)
+	        UUID=$(uuid)
 
           # Strip all double whitespaces and linefeeds from text
           PDFTXT=$(tr -ds  "\n\f" " " < "$OUTPUT_DIR${entry##*/}.txt")
@@ -53,8 +49,10 @@ LOG_FILE=$BASE/apps/log/ocrmypdf.log
 
           # Assemble the thumbnail subjason
           SEARCH="$OUTPUT_DIR${entry##*/}"
+
           for JPGFILE in $SEARCH*.jpg; do
             THUMBNAILS="$THUMBNAILS{\"imgname\" : \"${JPGFILE##*/}\",\"imdirectory\" : \"/$OUTPUT_DIR\"},"
+            SIGNALSENDTHUMBS="$SIGNALSENDTHUMBS$OUTPUT_DIR${JPGFILE##*/} "
           done
 
           ## strip the last ","
@@ -81,9 +79,11 @@ LOG_FILE=$BASE/apps/log/ocrmypdf.log
           echo "$JSON" > "$OUTPUT_DIR${entry##*/}.json"
 
 
-	  ## send the record to elastic search
+      	  ## send the record to elastic search
           curl -H "Content-Type: application/json" -XPOST "http://localhost:9200/dochauser/document/$UUID" -d @$OUTPUT_DIR${entry##*/}.json
 
+          ## send a notification to signal group
+          $BASE_DIR/$SIGNAL_VERSION/bin/signal-cli -a $SIGNAL_NUMBER send -m $NAME -a $SIGNALSENDTHUMBS
 
           ### Mark as processed
           touch "$entry.1"
