@@ -20,12 +20,21 @@ RUN apt-get update \
 	&& apt-get install -y imagemagick \
 	&& apt-get install -y cron \
         && apt-get install -y apt-transport-https \
-        && apt-get -y install elasticsearch
+        && apt-get install -y elasticsearch \
+        && apt-get install -y openjdk-17-jre-headless
 
 RUN update-rc.d elasticsearch defaults 95 10
  
 WORKDIR /home/scanner
+
 COPY --chown=scanner:scanner . .
+
+RUN wget https://github.com/AsamK/signal-cli/releases/download/v0.10.3/signal-cli-0.10.3-Linux.tar.gz \
+    && tar -xvf signal-cli-0.10.3-Linux.tar.gz -C apps \
+    && mkdir -p .local/share \
+    && tar -xvf signal-cli.tar -C .local/share \
+    && chown -R scanner:scanner .local
+
 VOLUME /home/scanner/archive
 VOLUME /home/scanner/scanner
 
