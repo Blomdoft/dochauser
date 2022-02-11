@@ -83,7 +83,7 @@ source $CURRENT_DIR/config.sh
           curl -H "Content-Type: application/json" -XPOST "http://localhost:9200/dochauser/document/$UUID" -d @$OUTPUT_DIR${entry##*/}.json
 
           ## send a notification to signal group
-          $BASE_DIR/$SIGNAL_VERSION/bin/signal-cli -a $SIGNAL_NUMBER send -m $NAME -a $SIGNALSENDTHUMBS
+          $SIGNAL_DIR/signal-cli -a $SIGNAL_NUMBER send -m $NAME -g $SIGNAL_GROUP -a $SIGNALSENDTHUMBS
 
           ### Mark as processed
           touch "$entry.1"
