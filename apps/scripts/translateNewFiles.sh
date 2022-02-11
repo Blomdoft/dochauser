@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
-source config.sh
-
+CURRENT_DIR=$(dirname "$(readlink -f "$0")")
+source $CURRENT_DIR/config.sh
 
 {
     cur_files=$(ls  ${MONITOR_DIR}*.pdf)
