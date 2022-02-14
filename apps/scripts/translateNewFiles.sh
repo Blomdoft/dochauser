@@ -44,12 +44,15 @@ source $CURRENT_DIR/config.sh
 	        UUID=$(uuid)
 
           # Strip all double whitespaces and linefeeds from text
-          PDFTXT=$(tr -ds  "\n\f" " " < "$OUTPUT_DIR${entry##*/}.txt")
+          PDFTXT=$(tr -cs  "[:alnum:]" " " < "$OUTPUT_DIR${entry##*/}.txt")
           NAME=${entry##*/}
 
           # Assemble the thumbnail subjason
           SEARCH="$OUTPUT_DIR${entry##*/}"
 
+
+	  THUMBNAILS=""
+	  SIGNALSENDTHUMBS=""
           for JPGFILE in $SEARCH*.jpg; do
             THUMBNAILS="$THUMBNAILS{\"imgname\" : \"${JPGFILE##*/}\",\"imdirectory\" : \"/$OUTPUT_DIR\"},"
             SIGNALSENDTHUMBS="$SIGNALSENDTHUMBS$OUTPUT_DIR${JPGFILE##*/} "
