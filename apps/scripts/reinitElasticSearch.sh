@@ -1,4 +1,3 @@
-
 #! /usr/bin/env bash
 
 CURRENT_DIR=$(dirname "$(readlink -f "$0")")
@@ -17,4 +16,5 @@ source $CURRENT_DIR/config.sh
 
     done
 
-} 
+}  >> $LOG_FILE
+
