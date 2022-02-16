@@ -17,4 +17,3 @@ source $CURRENT_DIR/config.sh
     done
 
 }  >> $LOG_FILE
-
