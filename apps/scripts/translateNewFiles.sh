@@ -62,7 +62,6 @@ source $CURRENT_DIR/config.sh
           THUMBNAILS=${THUMBNAILS::${#THUMBNAILS}-1}
 
           JSON="{
-                    \"document\" : {
                       \"id\" : \"$UUID\",
 		      \"name\" : \"$NAME\",
                       \"directory\" : \"$OUTPUT_DIR\",
@@ -77,7 +76,6 @@ source $CURRENT_DIR/config.sh
                           \"tagname\" : \"SCANNED\"
                         }
                       ]
-                    }
                   }"
           echo "$JSON" > "$OUTPUT_DIR${entry##*/}.json"
 
