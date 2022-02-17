@@ -54,7 +54,7 @@ source $CURRENT_DIR/config.sh
 	  THUMBNAILS=""
 	  SIGNALSENDTHUMBS=""
           for JPGFILE in $SEARCH*.jpg; do
-            THUMBNAILS="$THUMBNAILS{\"imgname\" : \"${JPGFILE##*/}\",\"imdirectory\" : \"/$OUTPUT_DIR\"},"
+            THUMBNAILS="$THUMBNAILS{\"imgname\" : \"${JPGFILE##*/}\",\"imgdirectory\" : \"/$OUTPUT_DIR\"},"
             SIGNALSENDTHUMBS="$SIGNALSENDTHUMBS$OUTPUT_DIR${JPGFILE##*/} "
           done
 
