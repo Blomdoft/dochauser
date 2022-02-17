@@ -54,7 +54,7 @@ source $CURRENT_DIR/config.sh
 	  THUMBNAILS=""
 	  SIGNALSENDTHUMBS=""
           for JPGFILE in $SEARCH*.jpg; do
-            THUMBNAILS="$THUMBNAILS{\"imgname\" : \"${JPGFILE##*/}\",\"imdirectory\" : \"/$OUTPUT_DIR\"},"
+            THUMBNAILS="$THUMBNAILS{\"imgname\" : \"${JPGFILE##*/}\",\"imgdirectory\" : \"/$OUTPUT_DIR\"},"
             SIGNALSENDTHUMBS="$SIGNALSENDTHUMBS$OUTPUT_DIR${JPGFILE##*/} "
           done
 
@@ -62,10 +62,9 @@ source $CURRENT_DIR/config.sh
           THUMBNAILS=${THUMBNAILS::${#THUMBNAILS}-1}
 
           JSON="{
-                    \"document\" : {
                       \"id\" : \"$UUID\",
 		      \"name\" : \"$NAME\",
-                      \"directoy\" : \"$OUTPUT_DIR\",
+                      \"directory\" : \"$OUTPUT_DIR\",
                       \"text\" : \"$PDFTXT\",
                       \"timestamp\" : \"$YEAR-$MONTH-$DAY-$HOUR-$MINUTE\",
                       \"origin\" : \"SCAN\",
@@ -77,7 +76,6 @@ source $CURRENT_DIR/config.sh
                           \"tagname\" : \"SCANNED\"
                         }
                       ]
-                    }
                   }"
           echo "$JSON" > "$OUTPUT_DIR${entry##*/}.json"
 

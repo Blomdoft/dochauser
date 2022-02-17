@@ -45,6 +45,9 @@ VOLUME /home/scanner/scanner
 
 EXPOSE 9200
 
+RUN printf "http.host: 0.0.0.0\nnetwork.host: 0.0.0.0\ndiscovery.type: single-node\n" >> /etc/elasticsearch/elasticsearch.yml
+ 
+
 RUN crontab -l | { cat; echo "* * * * * timeout 1h flock -n /home/scanner/apps/lock/translateNewFiles.lock su scanner -c /home/scanner/apps/scripts/translateNewFiles.sh"; } | crontab -
 RUN crontab -l | { cat; echo "* * * * * timeout 1h flock -n /home/scanner/apps/lock/retrieveSignalMessages.lock su scanner -c /home/scanner/apps/scripts/retrieveSignalMessages.sh"; } | crontab -
 CMD /home/scanner/apps/scripts/startupServices.sh && cron -f
