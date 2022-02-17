@@ -65,7 +65,7 @@ source $CURRENT_DIR/config.sh
                     \"document\" : {
                       \"id\" : \"$UUID\",
 		      \"name\" : \"$NAME\",
-                      \"directoy\" : \"$OUTPUT_DIR\",
+                      \"directory\" : \"$OUTPUT_DIR\",
                       \"text\" : \"$PDFTXT\",
                       \"timestamp\" : \"$YEAR-$MONTH-$DAY-$HOUR-$MINUTE\",
                       \"origin\" : \"SCAN\",
