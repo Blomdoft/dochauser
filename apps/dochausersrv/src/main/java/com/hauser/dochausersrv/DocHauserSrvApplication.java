@@ -1,4 +1,4 @@
-package com.hauser.DocHauserSrv;
+package com.hauser.dochausersrv;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

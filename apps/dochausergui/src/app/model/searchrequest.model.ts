@@ -9,7 +9,7 @@ enum SearchMode {
 
 export interface SearchRequest {
   aggregation: SearchAggregation
-  aggressive: SearchMode
+  mode: SearchMode
   from : string
   to : string
   queryterms : string[]

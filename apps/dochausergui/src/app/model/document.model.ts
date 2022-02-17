@@ -1,7 +1,7 @@
 export interface PDFDocument {
   id: string
   name: string
-  directoy: string
+  directory: string
   text: string
   timestamp: string
   origin: string

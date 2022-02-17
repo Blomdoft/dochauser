@@ -1,4 +1,4 @@
-package com.hauser.DocHauserSrv;
+package com.hauser.dochausersrv;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
