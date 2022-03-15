@@ -20,7 +20,8 @@ source $CURRENT_DIR/config.sh
           MONTH=$(date -r "$entry" +%m)
           DAY=$(date -r "$entry" +%d)
           HOUR=$(date -r "$entry" +%H)
-          MINUTE=$(date -r "$entry" +%M)
+	  MINUTE=$(date -r "$entry" +%M)
+  	  SECOND=$(date -r "$entry" +%S)
           OUTPUT_DIR="$ARCHIVE_DIR$YEAR/$MONTH/$DAY/";
 
           if [ ! -d "$OUTPUT_DIR" ]; then
@@ -61,12 +62,14 @@ source $CURRENT_DIR/config.sh
           ## strip the last ","
           THUMBNAILS=${THUMBNAILS::${#THUMBNAILS}-1}
 
+	  TIMESTAMP="$YEAR$MONTH${DAY}T$HOUR$MINUTE${SECOND}.000Z"
+
           JSON="{
                       \"id\" : \"$UUID\",
 		      \"name\" : \"$NAME\",
                       \"directory\" : \"$OUTPUT_DIR\",
                       \"text\" : \"$PDFTXT\",
-                      \"timestamp\" : \"$YEAR-$MONTH-$DAY-$HOUR-$MINUTE\",
+                      \"timestamp\" : \"$TIMESTAMP\",
                       \"origin\" : \"SCAN\",
                       \"thumbnails\" : [
                         $THUMBNAILS
