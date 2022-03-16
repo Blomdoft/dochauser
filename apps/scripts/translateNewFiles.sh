@@ -84,7 +84,7 @@ source $CURRENT_DIR/config.sh
 
 
       	  ## send the record to elastic search
-          curl -H "Content-Type: application/json" -XPOST "http://localhost:9200/dochauser/document/$UUID" -d @$OUTPUT_DIR${entry##*/}.json
+          curl -H "Content-Type: application/json" -XPOST "http://localhost:9200/dochauser/_doc/$UUID" -d @$OUTPUT_DIR${entry##*/}.json
 
           ## send a notification to signal group
           $SIGNAL_DIR/signal-cli -a $SIGNAL_NUMBER send -m $NAME -g $SIGNAL_GROUP -a $SIGNALSENDTHUMBS

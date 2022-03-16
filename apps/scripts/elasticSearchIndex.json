@@ -1,0 +1,42 @@
+{
+  "mappings": {
+      "properties": {
+        "directory": {
+          "type": "text"
+        },
+        "id": {
+          "type": "text"
+        },
+        "name": {
+          "type": "text"
+        },
+        "origin": {
+          "type": "text"
+        },
+        "tags": {
+          "properties": {
+            "tagname": {
+              "type": "text"
+            }
+          }
+        },
+        "text": {
+          "type": "text"
+        },
+        "thumbnails": {
+          "properties": {
+            "imgdirectory": {
+              "type": "text"
+            },
+            "imgname": {
+              "type": "text"
+            }
+          }
+        },
+        "timestamp": {
+          "type": "date",
+          "format": "basic_date_time"
+        }
+      }
+  }
+}
