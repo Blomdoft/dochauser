@@ -11,12 +11,12 @@
           "type": "text"
         },
         "origin": {
-          "type": "text"
+          "type": "keyword"
         },
         "tags": {
           "properties": {
             "tagname": {
-              "type": "text"
+              "type": "keyword"
             }
           }
         },
