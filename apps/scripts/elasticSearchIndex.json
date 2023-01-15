@@ -13,6 +13,15 @@
         "origin": {
           "type": "keyword"
         },
+        "deleted": {
+          "type": "keyword"
+        },
+        "workflow": {
+          "type": "keyword"
+        },
+        "assigned": {
+          "type": "keyword"
+        },
         "tags": {
           "properties": {
             "tagname": {

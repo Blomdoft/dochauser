@@ -28,11 +28,11 @@ WORKDIR /home/scanner
 
 COPY --chown=scanner:scanner . .
 
-RUN wget https://github.com/AsamK/signal-cli/releases/download/v0.10.3/signal-cli-0.10.3-Linux.tar.gz \
-    && tar -xvf signal-cli-0.10.3-Linux.tar.gz -C apps \
-    && mkdir -p .local/share \
-    && tar -xvf signal-cli.tar -C .local/share \
-    && chown -R scanner:scanner .local
+#RUN wget https://github.com/AsamK/signal-cli/releases/download/v0.10.3/signal-cli-0.10.3-Linux.tar.gz \
+#    && tar -xvf signal-cli-0.10.3-Linux.tar.gz -C apps \
+#    && mkdir -p .local/share \
+#    && tar -xvf signal-cli.tar -C .local/share \
+#    && chown -R scanner:scanner .local
 
 # change imagemagic config
 ARG imagemagic_config=/etc/ImageMagick-6/policy.xml
