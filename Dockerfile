@@ -20,7 +20,8 @@ RUN apt-get update \
 	    && apt-get install -y cron \
         && apt-get install -y apt-transport-https \
         && apt-get install -y elasticsearch \
-        && apt-get install -y openjdk-17-jre-headless
+        && apt-get install -y openjdk-17-jre-headless \
+	&& apt-get install -y rclone
 
 RUN update-rc.d elasticsearch defaults 95 10
  
@@ -50,6 +51,8 @@ RUN printf "http.host: 0.0.0.0\nnetwork.host: 0.0.0.0\ndiscovery.type: single-no
 
 RUN crontab -l | { cat; echo "* * * * * timeout 1h flock -n /home/scanner/apps/lock/translateNewFiles.lock su scanner -c /home/scanner/apps/scripts/translateNewFiles.sh"; } | crontab -
 RUN crontab -l | { cat; echo "* * * * * timeout 1h flock -n /home/scanner/apps/lock/retrieveSignalMessages.lock su scanner -c /home/scanner/apps/scripts/retrieveSignalMessages.sh"; } | crontab -
+RUN crontab -l | { cat; echo "*/5 * * * * timeout 1h flock -n /home/scanner/apps/lock/syncCloud.lock su scanner -c /home/scanner/apps/scripts/syncCloud.sh"; } | crontab -
+RUN crontab -l | { cat; echo "0 5 * * * timeout 1h flock -n /home/scanner/apps/lock/syncElasticSearchCloud.lock su scanner -c /home/scanner/apps/scripts/syncElasticSearchCloud.sh"; } | crontab -
 CMD /home/scanner/apps/scripts/startupServices.sh && cron -f
 
 

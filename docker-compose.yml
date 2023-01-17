@@ -1,6 +1,6 @@
 version: "3.3"
 services:
-  dochauser:
+  dochauserbatch:
     build: .
     volumes:
       - /home/scanner/dochauser_mount/archive:/home/scanner/archive
