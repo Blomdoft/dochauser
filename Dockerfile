@@ -21,19 +21,14 @@ RUN apt-get update \
         && apt-get install -y apt-transport-https \
         && apt-get install -y elasticsearch \
         && apt-get install -y openjdk-17-jre-headless \
-	&& apt-get install -y rclone
+        && apt-get install -y poppler-utils \
+	    && apt-get install -y rclone
 
 RUN update-rc.d elasticsearch defaults 95 10
  
 WORKDIR /home/scanner
 
 COPY --chown=scanner:scanner . .
-
-#RUN wget https://github.com/AsamK/signal-cli/releases/download/v0.10.3/signal-cli-0.10.3-Linux.tar.gz \
-#    && tar -xvf signal-cli-0.10.3-Linux.tar.gz -C apps \
-#    && mkdir -p .local/share \
-#    && tar -xvf signal-cli.tar -C .local/share \
-#    && chown -R scanner:scanner .local
 
 # change imagemagic config
 ARG imagemagic_config=/etc/ImageMagick-6/policy.xml
@@ -43,14 +38,13 @@ RUN if [ -f $imagemagic_config ] ; then sed -i 's/<policy domain="coder" rights=
 VOLUME /home/scanner/archive
 VOLUME /home/scanner/scanner
 
-
 EXPOSE 9200
 
 RUN printf "http.host: 0.0.0.0\nnetwork.host: 0.0.0.0\ndiscovery.type: single-node\n" >> /etc/elasticsearch/elasticsearch.yml
  
 
 RUN crontab -l | { cat; echo "* * * * * timeout 1h flock -n /home/scanner/apps/lock/translateNewFiles.lock su scanner -c /home/scanner/apps/scripts/translateNewFiles.sh"; } | crontab -
-RUN crontab -l | { cat; echo "* * * * * timeout 1h flock -n /home/scanner/apps/lock/retrieveSignalMessages.lock su scanner -c /home/scanner/apps/scripts/retrieveSignalMessages.sh"; } | crontab -
+RUN crontab -l | { cat; echo "* * * * * timeout 1h flock -n /home/scanner/apps/lock/translateUploadedFiles.lock su scanner -c /home/scanner/apps/scripts/translateUploadedFiles.sh"; } | crontab -
 RUN crontab -l | { cat; echo "*/5 * * * * timeout 1h flock -n /home/scanner/apps/lock/syncCloud.lock su scanner -c /home/scanner/apps/scripts/syncCloud.sh"; } | crontab -
 RUN crontab -l | { cat; echo "0 5 * * * timeout 1h flock -n /home/scanner/apps/lock/syncElasticSearchCloud.lock su scanner -c /home/scanner/apps/scripts/syncElasticSearchCloud.sh"; } | crontab -
 CMD /home/scanner/apps/scripts/startupServices.sh && cron -f

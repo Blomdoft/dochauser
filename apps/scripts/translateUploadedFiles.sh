@@ -4,7 +4,7 @@ CURRENT_DIR=$(dirname "$(readlink -f "$0")")
 source $CURRENT_DIR/config.sh
 
 {
-    cur_files=$(ls  ${MONITOR_DIR}*.pdf)
+    cur_files=$(ls  ${IMPORT_DIR}*.pdf)
 
     for entry in $cur_files
     do
@@ -16,19 +16,24 @@ source $CURRENT_DIR/config.sh
 
           ### Prepare output folder, which is year/month/day ###
 
-          YEAR=$(date -r "$entry" +%Y)
-          MONTH=$(date -r "$entry" +%m)
-          DAY=$(date -r "$entry" +%d)
-          HOUR=$(date -r "$entry" +%H)
-	        MINUTE=$(date -r "$entry" +%M)
-  	      SECOND=$(date -r "$entry" +%S)
+	        PDFCREATIONDATE=$(pdfinfo "$entry" -isodates | grep "CreationDate" | awk '{print substr($0, 18, 19);}')
+
+          YEAR=${PDFCREATIONDATE:0:4}
+          MONTH=${PDFCREATIONDATE:5:2}
+          DAY=${PDFCREATIONDATE:8:2}
+          HOUR=${PDFCREATIONDATE:11:2}
+	        MINUTE=${PDFCREATIONDATE:14:2}
+  	      SECOND=${PDFCREATIONDATE:17:2}
+
           OUTPUT_DIR="$ARCHIVE_DIR$YEAR/$MONTH/$DAY/";
+
+          echo "$OUTPUT_DIR determined"
+          echo "$HOUR $MINUTE $SECOND is the detail"
 
           if [ ! -d "$OUTPUT_DIR" ]; then
             mkdir -p "$OUTPUT_DIR"
             echo "${date} Created new output directory $OUTPUT_DIR"
           fi
-
 
           ### Process the file ###
 
@@ -38,7 +43,6 @@ source $CURRENT_DIR/config.sh
           pdf2txt -o "$OUTPUT_DIR${entry##*/}.txt" "$OUTPUT_DIR${entry##*/}"
           # save thumbnails of the pages of the pdf
           convert "$entry" -quality 30 "$OUTPUT_DIR${entry##*/}.jpg"
-
 
           ### Produce initial JSON document ###
 
@@ -70,24 +74,24 @@ source $CURRENT_DIR/config.sh
                       \"directory\" : \"$OUTPUT_DIR\",
                       \"text\" : \"$PDFTXT\",
                       \"timestamp\" : \"$TIMESTAMP\",
-                      \"origin\" : \"SCAN\",
+                      \"origin\" : \"IMPORT\",
                       \"thumbnails\" : [
                         $THUMBNAILS
                       ],
                       \"tags\" : [
                         {
-                          \"tagname\" : \"SCANNED\"
+                          \"tagname\" : \"IMPORTED\"
                         }
                       ]
                   }"
           echo "$JSON" > "$OUTPUT_DIR${entry##*/}.json"
+
 
       	  ## send the record to elastic search
           curl -H "Content-Type: application/json" -XPOST "http://localhost:9200/dochauser/_doc/$UUID" -d @$OUTPUT_DIR${entry##*/}.json
 
           ### Mark as processed
           touch "$entry.1"
-
 
           ## enough voodoo
       fi
