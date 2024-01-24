@@ -43,11 +43,12 @@ EXPOSE 9200
 
 RUN printf "http.host: 0.0.0.0\nnetwork.host: 0.0.0.0\ndiscovery.type: single-node\n" >> /etc/elasticsearch/elasticsearch.yml
  
-
 RUN crontab -l | { cat; echo "* * * * * timeout 1h flock -n /home/scanner/apps/lock/translateNewFiles.lock su scanner -c /home/scanner/apps/scripts/translateNewFiles.sh"; } | crontab -
 RUN crontab -l | { cat; echo "* * * * * timeout 1h flock -n /home/scanner/apps/lock/translateUploadedFiles.lock su scanner -c /home/scanner/apps/scripts/translateUploadedFiles.sh"; } | crontab -
 RUN crontab -l | { cat; echo "*/5 * * * * timeout 1h flock -n /home/scanner/apps/lock/syncCloud.lock su scanner -c /home/scanner/apps/scripts/syncCloud.sh"; } | crontab -
 RUN crontab -l | { cat; echo "0 5 * * * timeout 1h flock -n /home/scanner/apps/lock/syncElasticSearchCloud.lock su scanner -c /home/scanner/apps/scripts/syncElasticSearchCloud.sh"; } | crontab -
+RUN crontab -l | { cat; echo "*/5 * * * * timeout 1h flock -n /home/scanner/apps/lock/analyzeWithGpt.lock su scanner -c /home/scanner/apps/scripts/analyzeWithGpt.sh"; } | crontab -
+RUN crontab -l | { cat; echo "*/5 * * * * timeout 1h flock -n /home/scanner/apps/lock/copyToStructureAnalyzed.lock su scanner -c /home/scanner/apps/scripts/copyToStructureAnalyzed.sh"; } | crontab -
 CMD /home/scanner/apps/scripts/startupServices.sh && cron -f
 
 
