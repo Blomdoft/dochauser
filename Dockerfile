@@ -14,15 +14,16 @@ RUN apt-get update \
         && apt-get install -y curl \
         && apt-get install -y uuid\
         && apt-get install -y uuid-runtime \
-	    && apt-get install -y ocrmypdf \
-	    && apt-get install -y tesseract-ocr-deu \
-	    && apt-get install -y imagemagick \
-	    && apt-get install -y cron \
+        && apt-get install -y ocrmypdf \
+        && apt-get install -y tesseract-ocr-deu \
+        && apt-get install -y imagemagick \
+        && apt-get install -y cron \
         && apt-get install -y apt-transport-https \
         && apt-get install -y elasticsearch \
         && apt-get install -y openjdk-17-jre-headless \
         && apt-get install -y poppler-utils \
-	    && apt-get install -y rclone
+        && apt-get install -y rclone \
+        && apt-get install jq 
 
 RUN update-rc.d elasticsearch defaults 95 10
  
