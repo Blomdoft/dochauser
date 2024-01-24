@@ -24,7 +24,7 @@ DATE_30_DAYS_AGO=$(date -u -v-30d +"%Y%m%dT%H%M%S.000Z" 2>/dev/null || date -u -
 
 # Elasticsearch query to get the first document without analysis
 QUERY='{
-  "size": 1,
+  "size": 3,
   "query": {
     "bool": {
       "must": {
