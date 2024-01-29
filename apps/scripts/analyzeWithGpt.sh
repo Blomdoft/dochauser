@@ -15,13 +15,13 @@ INDEX_NAME="dochauser"
 ES_URL="http://$ES_HOST:9200/$INDEX_NAME/_search"
 UPDATE_URL="http://$ES_HOST:9200/$INDEX_NAME/_doc"
 # Read the system role message from the file
-SYSTEM_ROLE_MESSAGE=$(<$CURRENT_DIR/../config/prompt_message_dochausera.txt)
+SYSTEM_ROLE_MESSAGE=$(<$CURRENT_DIR/../config/prompt_message.txt)
 
 # OpenAI API details
 API_ENDPOINT="https://api.openai.com/v1/chat/completions"
 API_KEY="$OPENAI_API_KEY"
 # Get the date 30 days ago in the format required by Elasticsearch
-DATE_30_DAYS_AGO=$(date -u -v-200d +"%Y%m%dT%H%M%S.000Z" 2>/dev/null || date -u -d '30 days ago' +"%Y%m%dT%H%M%S.000Z" 2>/dev/null)
+DATE_30_DAYS_AGO=$(date -u -v-30d +"%Y%m%dT%H%M%S.000Z" 2>/dev/null || date -u -d '30 days ago' +"%Y%m%dT%H%M%S.000Z" 2>/dev/null)
 
 # Elasticsearch query to get the first document without analysis
 QUERY='{

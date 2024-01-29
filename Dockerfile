@@ -23,7 +23,7 @@ RUN apt-get update \
         && apt-get install -y openjdk-17-jre-headless \
         && apt-get install -y poppler-utils \
         && apt-get install -y rclone \
-        && apt-get install jq 
+        && apt-get install -y jq 
 
 RUN update-rc.d elasticsearch defaults 95 10
  
