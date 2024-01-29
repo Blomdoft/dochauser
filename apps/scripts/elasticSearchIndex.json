@@ -1,4 +1,7 @@
 {
+  "index_patterns": [
+    "dochauser*"
+  ],
   "mappings": {
       "properties": {
         "directory": {
@@ -45,6 +48,16 @@
         "timestamp": {
           "type": "date",
           "format": "basic_date_time"
+        },
+        "analysis": {
+          "properties": {
+            "senderAddress": { "type": "text" },
+            "receiverAddress": { "type": "text" },
+            "intent": { "type": "text" },
+            "filename": { "type": "text" },
+            "category_level1": { "type": "keyword" },
+            "category_level2": { "type": "keyword" }
+          }
         }
       }
   }

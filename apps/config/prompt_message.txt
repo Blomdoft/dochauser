@@ -17,4 +17,5 @@ Category_level1 can be CCycle (which is the company of Philip Hauser dealing wit
 it then has one of the Category_level3 Rechnung, Anfrage, Essay, Spesen, Abrechnung
 If the category level 1 or level 2 cannot be determined, give back "Andere" for level1 and level2.
 As filename, please come up with a short (up to 30 character) logical filename for the pdf, that describes the texts content.
+Intent should be a short one or two scentences synopsis of what the document is about.
 Return everything in German.
