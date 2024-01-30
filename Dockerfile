@@ -46,7 +46,7 @@ RUN printf "http.host: 0.0.0.0\nnetwork.host: 0.0.0.0\ndiscovery.type: single-no
 RUN crontab -l | { cat; echo "* * * * * timeout 1h flock -n /home/scanner/apps/lock/translateNewFiles.lock su scanner -c /home/scanner/apps/scripts/translateNewFiles.sh"; } | crontab -
 RUN crontab -l | { cat; echo "* * * * * timeout 1h flock -n /home/scanner/apps/lock/translateUploadedFiles.lock su scanner -c /home/scanner/apps/scripts/translateUploadedFiles.sh"; } | crontab -
 RUN crontab -l | { cat; echo "*/5 * * * * timeout 1h flock -n /home/scanner/apps/lock/syncCloud.lock su scanner -c /home/scanner/apps/scripts/syncCloud.sh"; } | crontab -
-RUN crontab -l | { cat; echo "0 0 * * 0 timeout 1h flock -n /home/scanner/apps/lock/syncElasticSearchCloud.lock su scanner -c /home/scanner/apps/scripts/syncElasticSearchCloud.sh"; } | crontab -
+RUN crontab -l | { cat; echo "0 0 * * 0 timeout 1h flock -n /home/scanner/apps/lock/backupElasticSearchIndex.lock su scanner -c /home/scanner/apps/scripts/backupElasticSearchIndex.sh"; } | crontab -
 RUN crontab -l | { cat; echo "*/5 * * * * timeout 1h flock -n /home/scanner/apps/lock/analyzeWithGpt.lock su scanner -c /home/scanner/apps/scripts/analyzeWithGpt.sh"; } | crontab -
 RUN crontab -l | { cat; echo "*/5 * * * * timeout 1h flock -n /home/scanner/apps/lock/copyToStructureAnalyzed.lock su scanner -c /home/scanner/apps/scripts/copyToStructureAnalyzed.sh"; } | crontab -
 

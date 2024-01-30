@@ -33,3 +33,7 @@ done
 
 # Optional: Clear the scroll
 curl -X DELETE "http://${ES_HOST}:9200/_search/scroll" -H 'Content-Type: application/json' -d "{\"scroll_id\": \"$SCROLL_ID\"}"
+
+# sync with rclone to cloud
+rclone --config=$RCLONE_CONFIG copy $ES_BACKUP_DIR dochausersync:/dochauser_mount/es_backup
+
