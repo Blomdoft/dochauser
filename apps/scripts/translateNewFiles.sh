@@ -10,7 +10,7 @@ source $CURRENT_DIR/../config/config.sh
     do
 
       if [ -f "$entry.1" ]; then
-        echo ""
+        :
       else
           echo "${date} Needs to be processed: $entry"
 
