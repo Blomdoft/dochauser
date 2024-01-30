@@ -49,6 +49,7 @@ RUN crontab -l | { cat; echo "*/5 * * * * timeout 1h flock -n /home/scanner/apps
 RUN crontab -l | { cat; echo "0 0 * * 0 timeout 1h flock -n /home/scanner/apps/lock/backupElasticSearchIndex.lock su scanner -c /home/scanner/apps/scripts/backupElasticSearchIndex.sh"; } | crontab -
 RUN crontab -l | { cat; echo "*/5 * * * * timeout 1h flock -n /home/scanner/apps/lock/analyzeWithGpt.lock su scanner -c /home/scanner/apps/scripts/analyzeWithGpt.sh"; } | crontab -
 RUN crontab -l | { cat; echo "*/5 * * * * timeout 1h flock -n /home/scanner/apps/lock/copyToStructureAnalyzed.lock su scanner -c /home/scanner/apps/scripts/copyToStructureAnalyzed.sh"; } | crontab -
+RUN crontab -l | { cat; echo "0 0 * * 0 timeout 1h flock -n /home/scanner/apps/lock/houseKeeping.lock su scanner -c /home/scanner/apps/scripts/houseKeeping.sh"; } | crontab -
 
 CMD /home/scanner/apps/scripts/startupServices.sh && cron -f
 

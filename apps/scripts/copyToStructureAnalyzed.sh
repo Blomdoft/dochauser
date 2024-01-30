@@ -3,6 +3,7 @@
 CURRENT_DIR=$(dirname "$(readlink -f "$0")")
 source $CURRENT_DIR/config.sh
 
+{ 
 # Elasticsearch server details
 INDEX_NAME="dochauser"
 ES_URL="http://$ES_HOST:9200/$INDEX_NAME/_search"
@@ -45,7 +46,7 @@ echo "$RESPONSE" | jq -c '.hits.hits[]' | while read -r line; do
   FILENAMEDEST=$(echo "$line" | jq -r '._source.analysis.filename')
   CATEGORY_LEVEL1=$(echo "$line" | jq -r '._source.analysis.category_level1')
   CATEGORY_LEVEL2=$(echo "$line" | jq -r '._source.analysis.category_level2')
-  DOCUMENT_DATE=$(echo "$line" | jq -r '._source.timestamp' | cut -c 3-8)
+  DOCUMENT_DATE=$(echo "$line" | jq -r '._source.timestamp' | cut -c 1-8)
 
   # Extract the part of the directory after "/archive/"
 
@@ -71,3 +72,4 @@ echo "$RESPONSE" | jq -c '.hits.hits[]' | while read -r line; do
   fi
 
 done
+} >> $LOG_FILE
