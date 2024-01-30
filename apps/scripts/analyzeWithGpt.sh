@@ -47,15 +47,12 @@ source $CURRENT_DIR/../config/apikey.sh
   # Fetch documents from Elasticsearch
   RESPONSE=$(curl -s -X GET "$ES_URL" -H 'Content-Type: application/json' -d "$QUERY")
 
-  echo "$RESPONSE"
-
-  echo "----"
-
-
   # Process each document
   echo "$RESPONSE" | jq -c '.hits.hits[]' | while read -r line; do
     ID=$(echo "$line" | jq -r '._id')
     TEXT=$(echo "$line" | jq -r '._source.text')
+
+    echo "Analyzing with GPT....  ${ID}"
 
     # Interact with ChatGPT API to get analysis
     # Assuming the API returns JSON in the desired format
@@ -79,10 +76,10 @@ source $CURRENT_DIR/../config/apikey.sh
                   -H "Authorization: Bearer $API_KEY" \
                   -d "$API_DATA" | jq -r '.choices[0].message.content')
 
-      echo "$ANALYSIS"
+      echo "GPT Response is {$ANALYSIS}"
 
       # Update the document in Elasticsearch with the new analysis
       curl -s -X POST "$UPDATE_URL/$ID/_update" -H 'Content-Type: application/json' -d "{\"doc\": {\"analysis\": $ANALYSIS}}"
 
   done
-} >> LOG_FILE
+} >> $LOG_FILE

@@ -38,4 +38,4 @@ source $CURRENT_DIR/../config/config.sh
     # sync with rclone to cloud
     rclone --config=$RCLONE_CONFIG copy $ES_BACKUP_DIR dochausersync:/dochauser_mount/es_backup
 
-} >> LOG_FILE
+} >> $LOG_FILE

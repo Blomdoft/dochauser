@@ -38,4 +38,4 @@ source $CURRENT_DIR/../config/config.sh
     done
 
     echo "Cleanup process completed."
-} >> LOG_FILE
+} >> $LOG_FILE
