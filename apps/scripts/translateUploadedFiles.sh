@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 CURRENT_DIR=$(dirname "$(readlink -f "$0")")
-source $CURRENT_DIR/config.sh
+source $CURRENT_DIR/../config/config.sh
 
 {
     cur_files=$(ls  ${IMPORT_DIR}*.pdf)
