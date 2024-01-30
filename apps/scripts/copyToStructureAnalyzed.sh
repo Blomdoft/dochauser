@@ -47,10 +47,7 @@ source $CURRENT_DIR/../config/config.sh
     DOCUMENT_DATE=$(echo "$line" | jq -r '._source.timestamp' | cut -c 1-8)
 
     # Extract the part of the directory after "/archive/"
-
-
     MODIFIED_DIRECTORY=$(echo "$DIRECTORY" | awk -F'/archive/' '{print $2}')
-    echo $MODIFIED_DIRECTORY
 
     # Prepend your base directory
     SOURCE_PATH="${ARCHIVE_DIR}${MODIFIED_DIRECTORY}${FILENAME}"
@@ -58,15 +55,14 @@ source $CURRENT_DIR/../config/config.sh
     # Generate the destination path
     DEST_PATH="${CATEGORIZED_DIR}/${CATEGORY_LEVEL1}/${CATEGORY_LEVEL2}/${DOCUMENT_DATE}_${FILENAMEDEST}"
 
-      echo $SOURCE_PATH
-      echo $DEST_PATH
-
     # Create the destination directory tree if it doesn't exist
 
     if [ ! -f "$DEST_PATH" ]; then
       mkdir -p "$(dirname "$DEST_PATH")"
       # make a hard link as symlinks do not work well outside of the container
       ln  "${SOURCE_PATH}" "${DEST_PATH}"
+      echo $SOURCE_PATH
+      echo $DEST_PATH
     fi
 
   done
