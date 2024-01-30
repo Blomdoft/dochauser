@@ -1,4 +1,4 @@
-BASE=/home/scanner
+BASE=/Users/florian/Documents/dochauser_mount
 ARCHIVE_DIR=$BASE/archive/
 MONITOR_DIR=$BASE/scanner/
 CATEGORIZED_DIR=$BASE/archive/categorized/
