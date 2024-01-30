@@ -12,7 +12,7 @@ IMPORT_DIR=$BASE/import/
 CATEGORIZED_DIR=$BASE/archive/categorized/
 ES_BACKUP_DIR=$BASE/archive/es_backup
 RCLONE_CONFIG=$BASE/apps/config/rclone.conf
-LOG_FILE=/archive/log/dochauser.log
+LOG_FILE=$BASE/archive/log/dochauser.log
 
 # Signal functionality currently does not exist
 SIGNAL_NUMBER=+41445008346
