@@ -24,4 +24,4 @@ SIGNAL_GROUP=dZRhXx+fbwTl9QBkPGWeBkHh4UFtOio5suJZQyQ1O0Y=
 ES_HOST="localhost"
 
 ## ensure log directory
-mkdir -p "$(dirname "$BACKUP_FILE")"
+mkdir -p "$(dirname "$LOG_FILE")"
