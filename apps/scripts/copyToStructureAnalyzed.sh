@@ -66,7 +66,7 @@ echo "$RESPONSE" | jq -c '.hits.hits[]' | while read -r line; do
 
   if [ ! -f "$DEST_PATH" ]; then
     mkdir -p "$(dirname "$DEST_PATH")"
-    cp "${SOURCE_PATH}" "${DEST_PATH}"
+    ln -s "${SOURCE_PATH}" "${DEST_PATH}"
   fi
 
 done

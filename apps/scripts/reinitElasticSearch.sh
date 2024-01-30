@@ -6,7 +6,7 @@ source $CURRENT_DIR/config.sh
 {
 
     # delete the existing index
-    curl -H "Content-Type: application/json" -XDELETE "http://localhost:9200/dochauser"
+    # curl -H "Content-Type: application/json" -XDELETE "http://localhost:9200/dochauser"
     # reinit index from file
     curl -H "Content-Type: application/json" -XPUT "http://localhost:9200/dochauser" -d "@$CURRENT_DIR/elasticSearchIndex.json"
 
