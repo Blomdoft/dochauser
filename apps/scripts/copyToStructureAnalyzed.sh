@@ -66,7 +66,8 @@ echo "$RESPONSE" | jq -c '.hits.hits[]' | while read -r line; do
 
   if [ ! -f "$DEST_PATH" ]; then
     mkdir -p "$(dirname "$DEST_PATH")"
-    ln -s "${SOURCE_PATH}" "${DEST_PATH}"
+    # make a hard link as symlinks do not work well outside of the container
+    ln  "${SOURCE_PATH}" "${DEST_PATH}"
   fi
 
 done
