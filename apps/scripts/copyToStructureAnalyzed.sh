@@ -37,8 +37,6 @@ source $CURRENT_DIR/../config/config.sh
   # Fetch documents from Elasticsearch
   RESPONSE=$(curl -s -X GET "$ES_URL" -H 'Content-Type: application/json' -d "$QUERY")
 
-  echo $RESPONSE
-
   # Process each document
   echo "$RESPONSE" | jq -c '.hits.hits[]' | while read -r line; do
     DIRECTORY=$(echo "$line" | jq -r '._source.directory')
