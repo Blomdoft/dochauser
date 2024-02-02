@@ -38,6 +38,7 @@ RUN if [ -f $imagemagic_config ] ; then sed -i 's/<policy domain="coder" rights=
 # Volumes for mounts
 VOLUME /home/scanner/archive
 VOLUME /home/scanner/scanner
+VOLUME /home/scanner/import
 
 EXPOSE 9200
 
