@@ -16,7 +16,7 @@ source $CURRENT_DIR/../config/config.sh
 
           ### Prepare output folder, which is year/month/day ###
 
-	        PDFCREATIONDATE=$(pdfinfo "$entry" -isodates | grep "CreationDate" | awk '{print substr($0, 18, 19);}')
+	        PDFCREATIONDATE=$(pdfinfo "$entry" -isodates | grep "CreationDate" | awk '{print substr($0, 17, 19);}')
 
           YEAR=${PDFCREATIONDATE:0:4}
           MONTH=${PDFCREATIONDATE:5:2}
