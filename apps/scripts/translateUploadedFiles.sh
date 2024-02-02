@@ -17,6 +17,7 @@ source $CURRENT_DIR/../config/config.sh
           ### Prepare output folder, which is year/month/day ###
 
 	        PDFCREATIONDATE=$(pdfinfo "$entry" -isodates | grep "CreationDate" | awk '{print substr($0, 17, 19);}')
+	        #PDFCREATIONDATE=$(pdfinfo "$entry" -isodates | grep "CreationDate" | awk '{print substr($0, 18, 19);}')
 
           YEAR=${PDFCREATIONDATE:0:4}
           MONTH=${PDFCREATIONDATE:5:2}
@@ -38,7 +39,7 @@ source $CURRENT_DIR/../config/config.sh
           ### Process the file ###
 
           # OCR the document
-          ocrmypdf -l deu "$entry" "$OUTPUT_DIR${entry##*/}"
+          ocrmypdf --skip-text -l deu "$entry" "$OUTPUT_DIR${entry##*/}"
           # extract all text of the pdf to a text file
           pdf2txt -o "$OUTPUT_DIR${entry##*/}.txt" "$OUTPUT_DIR${entry##*/}"
           # save thumbnails of the pages of the pdf
